@@ -61,4 +61,4 @@ env:
     - VCS_REF=${TRAVIS_COMMIT}
     - BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
     - DOCKER_TAG="${PHP_VERSION}-${RELEASE_NUMBER}"
-    - PHP_DOCKER_IMAGE_NAME="docker.io/elasticms/base-php-apache"
+    - PHP_DOCKER_IMAGE_NAME="docker.io/elasticms/base-php-apache-dev"
