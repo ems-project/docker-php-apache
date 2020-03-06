@@ -34,15 +34,15 @@ after_script:
 
 after_success:
   - echo "Stage [Test] - Step [after_success] ..."
-  - test $TRAVIS_BRANCH = "$PHP_VERSION" && test $TRAVIS_PULL_REQUEST = "false" && echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - test $TRAVIS_BRANCH = "$PHP_VERSION" && test $TRAVIS_PULL_REQUEST = "false" && docker tag ${PHP_DOCKER_IMAGE_NAME}:rc ${PHP_DOCKER_IMAGE_NAME}:$TRAVIS_COMMIT
-  - test $TRAVIS_BRANCH = "$PHP_VERSION" && test $TRAVIS_PULL_REQUEST = "false" && docker tag ${PHP_DOCKER_IMAGE_NAME}:rc ${PHP_DOCKER_IMAGE_NAME}:$DOCKER_TAG
-  - test $TRAVIS_BRANCH = "$PHP_VERSION" && test $TRAVIS_PULL_REQUEST = "false" && docker tag ${PHP_DOCKER_IMAGE_NAME}:rc ${PHP_DOCKER_IMAGE_NAME}:$PHP_VERSION
-  - test $TRAVIS_BRANCH = "$PHP_VERSION" && test $TRAVIS_PULL_REQUEST = "false" && docker tag ${PHP_DOCKER_IMAGE_NAME}:rc ${PHP_DOCKER_IMAGE_NAME}:latest
-  - test $TRAVIS_BRANCH = "$PHP_VERSION" && test $TRAVIS_PULL_REQUEST = "false" && docker push ${PHP_DOCKER_IMAGE_NAME}:$TRAVIS_COMMIT
-  - test $TRAVIS_BRANCH = "$PHP_VERSION" && test $TRAVIS_PULL_REQUEST = "false" && docker push ${PHP_DOCKER_IMAGE_NAME}:$DOCKER_TAG
-  - test $TRAVIS_BRANCH = "$PHP_VERSION" && test $TRAVIS_PULL_REQUEST = "false" && docker push ${PHP_DOCKER_IMAGE_NAME}:$PHP_VERSION
-  - test $TRAVIS_BRANCH = "$PHP_VERSION" && test $TRAVIS_PULL_REQUEST = "false" && docker push ${PHP_DOCKER_IMAGE_NAME}:latest
+  - test $TRAVIS_BRANCH = "${PHP_VERSION}-dev" && test $TRAVIS_PULL_REQUEST = "false" && echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - test $TRAVIS_BRANCH = "${PHP_VERSION}-dev" && test $TRAVIS_PULL_REQUEST = "false" && docker tag ${PHP_DOCKER_IMAGE_NAME}:rc ${PHP_DOCKER_IMAGE_NAME}:$TRAVIS_COMMIT
+  - test $TRAVIS_BRANCH = "${PHP_VERSION}-dev" && test $TRAVIS_PULL_REQUEST = "false" && docker tag ${PHP_DOCKER_IMAGE_NAME}:rc ${PHP_DOCKER_IMAGE_NAME}:$DOCKER_TAG
+  - test $TRAVIS_BRANCH = "${PHP_VERSION}-dev" && test $TRAVIS_PULL_REQUEST = "false" && docker tag ${PHP_DOCKER_IMAGE_NAME}:rc ${PHP_DOCKER_IMAGE_NAME}:$PHP_VERSION
+  - test $TRAVIS_BRANCH = "${PHP_VERSION}-dev" && test $TRAVIS_PULL_REQUEST = "false" && docker tag ${PHP_DOCKER_IMAGE_NAME}:rc ${PHP_DOCKER_IMAGE_NAME}:latest
+  - test $TRAVIS_BRANCH = "${PHP_VERSION}-dev" && test $TRAVIS_PULL_REQUEST = "false" && docker push ${PHP_DOCKER_IMAGE_NAME}:$TRAVIS_COMMIT
+  - test $TRAVIS_BRANCH = "${PHP_VERSION}-dev" && test $TRAVIS_PULL_REQUEST = "false" && docker push ${PHP_DOCKER_IMAGE_NAME}:$DOCKER_TAG
+  - test $TRAVIS_BRANCH = "${PHP_VERSION}-dev" && test $TRAVIS_PULL_REQUEST = "false" && docker push ${PHP_DOCKER_IMAGE_NAME}:$PHP_VERSION
+  - test $TRAVIS_BRANCH = "${PHP_VERSION}-dev" && test $TRAVIS_PULL_REQUEST = "false" && docker push ${PHP_DOCKER_IMAGE_NAME}:latest
 
 addons:
   apt:
