@@ -19,7 +19,7 @@ export BATS_MYSQL_VOLUME_NAME="mysql"
 export BATS_CLAIR_LOCAL_SCANNER_CONFIG_VOLUME_NAME=${BATS_CLAIR_LOCAL_SCANNER_CONFIG_VOLUME_NAME:-clair_local_scanner}
 export BATS_PHP_SCRIPTS_VOLUME_NAME=${BATS_PHP_SCRIPTS_VOLUME_NAME:-php_scripts}
 
-export BATS_PHP_DOCKER_IMAGE_NAME="${PHP_DOCKER_IMAGE_NAME:-docker.io/elasticms/base-php-apache-dev}:rc"
+export BATS_PHP_DOCKER_IMAGE_NAME="${PHP_DOCKER_IMAGE_NAME:-docker.io/elasticms/base-php-apache}:rc"
 
 @test "[$TEST_FILE] Create Docker external volumes (local)" {
   command docker volume create -d local ${BATS_MYSQL_VOLUME_NAME}
@@ -50,7 +50,7 @@ export BATS_PHP_DOCKER_IMAGE_NAME="${PHP_DOCKER_IMAGE_NAME:-docker.io/elasticms/
 @test "[$TEST_FILE] Launch Clair Scan for [ $BATS_PHP_DOCKER_IMAGE_NAME ] Docker Image" {
   export BATS_CLAIR_LOCAL_ENDPOINT_URL="http://$(docker inspect --format '{{ .NetworkSettings.Networks.docker_default.IPAddress }}' clair_local_scan):6060"
   export BATS_CLAIR_LOCAL_SCANNER_IP="clair_local_scanner"
-  export BATS_CLAIR_SCAN_DOCKER_IMAGE_NAME="${BATS_PHP_DOCKER_IMAGE_NAME:-docker.io/elasticms/base-php-apache-dev:rc}"
+  export BATS_CLAIR_SCAN_DOCKER_IMAGE_NAME="${BATS_PHP_DOCKER_IMAGE_NAME:-docker.io/elasticms/base-php-apache:rc}"
 
   run docker-compose -f docker-compose.yml up clair_local_scanner
   assert_success
