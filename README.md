@@ -1,4 +1,4 @@
-# Base PHP + Apache Docker image [![Build Status](https://travis-ci.com/ems-project/docker-php-apache.svg?branch=7.3)](https://travis-ci.com/ems-project/docker-php-apache)
+# Base PHP + Apache Docker image [![Build Status](https://travis-ci.com/ems-project/docker-php-apache.svg?branch=7.2)](https://travis-ci.com/ems-project/docker-php-apache)
 
 Docker base image is the basic image on which you add layers (which are basically filesystem changes) and create a final image containing your App.  
 
