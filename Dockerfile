@@ -47,6 +47,6 @@ USER 1001
 ENTRYPOINT ["container-entrypoint"]
 
 HEALTHCHECK --start-period=10s --interval=1m --timeout=5s --retries=5 \
-        CMD curl --fail --header "Host: localhost" http://localhost:9000/index.php || exit 1
+        CMD curl --fail --header "Host: default.localhost" http://localhost:9000/index.php || exit 1
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

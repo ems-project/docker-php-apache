@@ -56,27 +56,27 @@ export BATS_PHP_DOCKER_IMAGE_NAME="${PHP_DOCKER_IMAGE_NAME:-docker.io/elasticms/
 }
 
 @test "[$TEST_FILE] Check for PHP Info page response code 200" {
-  retry 12 5 curl_container php :9000/phpinfo.php -H "Host: localhost" -s -w %{http_code} -o /dev/null
+  retry 12 5 curl_container php :9000/phpinfo.php -H "Host: default.localhost" -s -w %{http_code} -o /dev/null
   assert_output -l 0 $'200'
 }
 
 @test "[$TEST_FILE] Check for Index page response code 200" {
-  retry 12 5 curl_container php :9000/index.php -H "Host: localhost" -s -w %{http_code} -o /dev/null
+  retry 12 5 curl_container php :9000/index.php -H "Host: default.localhost" -s -w %{http_code} -o /dev/null
   assert_output -l 0 $'200'
 }
 
 @test "[$TEST_FILE] Check for Index page response message" {
-  retry 12 5 curl_container php :9000/index.php -H "Host: localhost" -s 
+  retry 12 5 curl_container php :9000/index.php -H "Host: default.localhost" -s 
   assert_output -l -r "Docker Base image - Default index.php page"
 }
 
 @test "[$TEST_FILE] Check for MySQL Connection CheckUp response code 200" {
-  retry 12 5 curl_container php :9000/check-mysql.php -H "Host: localhost" -s -w %{http_code} -o /dev/null
+  retry 12 5 curl_container php :9000/check-mysql.php -H "Host: default.localhost" -s -w %{http_code} -o /dev/null
   assert_output -l 0 $'200'
 }
 
 @test "[$TEST_FILE] Check for MySQL Connection CheckUp response message" {
-  retry 12 5 curl_container php :9000/check-mysql.php -H "Host: localhost" -s 
+  retry 12 5 curl_container php :9000/check-mysql.php -H "Host: default.localhost" -s 
   assert_output -l -r "Check MySQL Connection Done."
 }
 
