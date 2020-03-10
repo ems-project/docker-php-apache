@@ -9,7 +9,7 @@ ARG VCS_REF_ARG=""
 LABEL eu.elasticms.base-php-apache.build-date=$BUILD_DATE_ARG \
       eu.elasticms.base-php-apache.name="" \
       eu.elasticms.base-php-apache.description="" \
-      eu.elasticms.base-php-apache.url="hhttps://hub.docker.com/repository/docker/elasticms/base-php-apache-dev" \
+      eu.elasticms.base-php-apache.url="https://hub.docker.com/repository/docker/elasticms/base-php-apache-dev" \
       eu.elasticms.base-php-apache.vcs-ref=$VCS_REF_ARG \
       eu.elasticms.base-php-apache.vcs-url="https://github.com/ems-project/docker-php-apache" \
       eu.elasticms.base-php-apache.vendor="sebastian.molle@gmail.com" \
@@ -47,6 +47,6 @@ USER 1001
 ENTRYPOINT ["container-entrypoint"]
 
 HEALTHCHECK --start-period=10s --interval=1m --timeout=5s --retries=5 \
-        CMD curl --fail --header "Host: localhost" http://localhost:9000/index.php || exit 1
+        CMD curl --fail --header "Host: default.localhost" http://localhost:9000/index.php || exit 1
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
