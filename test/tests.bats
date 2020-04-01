@@ -23,7 +23,7 @@ export BATS_MYSQL_VOLUME_NAME="mysql"
 export BATS_CLAIR_LOCAL_SCANNER_CONFIG_VOLUME_NAME=${BATS_CLAIR_LOCAL_SCANNER_CONFIG_VOLUME_NAME:-clair_local_scanner}
 export BATS_PHP_SCRIPTS_VOLUME_NAME=${BATS_PHP_SCRIPTS_VOLUME_NAME:-php_scripts}
 
-export BATS_PHP_DOCKER_IMAGE_NAME="${PHP_DOCKER_IMAGE_NAME:-docker.io/elasticms/base-php-apache}:rc"
+export BATS_PHP_DOCKER_IMAGE_NAME="${PHP_DOCKER_IMAGE_NAME:-docker.io/elasticms/base-php-apache-dev}:rc"
 
 @test "[$TEST_FILE] Create Docker external volumes (local)" {
   command docker volume create -d local ${BATS_MYSQL_VOLUME_NAME}
@@ -78,6 +78,21 @@ export BATS_PHP_DOCKER_IMAGE_NAME="${PHP_DOCKER_IMAGE_NAME:-docker.io/elasticms/
 @test "[$TEST_FILE] Check for MySQL Connection CheckUp response message" {
   retry 12 5 curl_container php :9000/check-mysql.php -H "Host: default.localhost" -s 
   assert_output -l -r "Check MySQL Connection Done."
+}
+
+@test "[$TEST_FILE] Check for Monitoring /real-time-status page response code 200" {
+  retry 12 5 curl_container php :9000/real-time-status -H "Host: default.localhost" -s -w %{http_code} -o /dev/null
+  assert_output -l 0 $'200'
+}
+
+@test "[$TEST_FILE] Check for Monitoring /status page response code 200" {
+  retry 12 5 curl_container php :9000/status -H "Host: default.localhost" -s -w %{http_code} -o /dev/null
+  assert_output -l 0 $'200'
+}
+
+@test "[$TEST_FILE] Check for Monitoring /server-status page response code 200" {
+  retry 12 5 curl_container php :9000/server-status -H "Host: default.localhost" -s -w %{http_code} -o /dev/null
+  assert_output -l 0 $'200'
 }
 
 @test "[$TEST_FILE] Stop all and delete test containers" {

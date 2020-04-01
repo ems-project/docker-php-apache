@@ -16,7 +16,7 @@ export BATS_PHP_SCRIPTS_VOLUME_NAME=${BATS_PHP_SCRIPTS_VOLUME_NAME:-php_scripts}
 
 export BATS_STORAGE_SERVICE_NAME="mysql"
 
-export BATS_PHP_DOCKER_IMAGE_NAME="${PHP_DOCKER_IMAGE_NAME:-docker.io/elasticms/base-php-apache}:rc"
+export BATS_PHP_DOCKER_IMAGE_NAME="${PHP_DOCKER_IMAGE_NAME:-docker.io/elasticms/base-php-apache-dev}:rc"
 
 @test "[$TEST_FILE] Starting PHP [ ${BATS_PHP_DOCKER_IMAGE_NAME} ] Docker image build" {
   command docker-compose -f docker-compose.yml build --pull --no-cache php
