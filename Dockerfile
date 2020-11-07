@@ -22,20 +22,19 @@ USER root
 ENV HOME=/home/default \
     PATH=/opt/bin:/usr/local/bin:/usr/bin:$PATH
 
-COPY etc/apache2/ /etc/apache2/
-COPY etc/supervisor/ /etc/supervisor/
+COPY etc/ /etc/
 COPY src/ /var/www/html/
 
 RUN apk add --update --virtual .php-apache-rundeps apache2 apache2-utils apache2-proxy apache2-ssl supervisor \
     && touch /var/log/supervisord.log \
     && touch /var/run/supervisord.pid \
-    && mkdir -p /run/apache2 /var/run/apache2 /var/log/apache2 \
+    && mkdir -p /run/apache2 /var/run/apache2 /var/log/apache2 /etc/supervisord \
     && rm -rf /var/cache/apk/* \
     && echo "Setup permissions on filesystem for non-privileged user ..." \
     && chown -Rf 1001:0 /etc/apache2 /run/apache2 /var/run/apache2 /var/log/apache2 /var/www/html \
-                        /var/log/supervisord.log /etc/supervisord.conf /var/run/supervisord.pid \
+                        /var/log/supervisord.log /etc/supervisord /var/run/supervisord.pid \
     && chmod -R ug+rw /etc/apache2 /run/apache2 /var/run/apache2 /var/log/apache2 /var/lock /var/www/html \
-                      /var/log/supervisord.log /etc/supervisord.conf /var/run/supervisord.pid \
+                      /var/log/supervisord.log /etc/supervisord /var/run/supervisord.pid \
     && find /run/apache2 -type d -exec chmod ug+x {} \; \
     && find /etc/apache2 -type d -exec chmod ug+x {} \; \
     && find /run/apache2 -type d -exec chmod ug+x {} \; \
@@ -49,4 +48,4 @@ ENTRYPOINT ["container-entrypoint"]
 HEALTHCHECK --start-period=10s --interval=1m --timeout=5s --retries=5 \
         CMD curl --fail --header "Host: default.localhost" http://localhost:9000/index.php || exit 1
 
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord/supervisord.conf"]
